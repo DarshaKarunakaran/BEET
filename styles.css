@@ -1,15 +1,16 @@
 .metronome-container {
-    width: 100%;
+    width: 75%;
     height: 80px;
     background-color: #ffcad4;
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 30px;
-    position: fixed;
+    position: center;
     top: 0;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1000;
+    margin-left: 10%;
 }
 
 .title {
@@ -59,4 +60,33 @@ button:hover {
     border: none;
     border-left: 10px solid #333;
     border-right: 10px solid #333;
+}
+
+.beat-box{
+    height:50px;
+    width: 10px;
+}
+
+.middle-container{
+    display:flexbox;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    margin: 100px 100px 100px 100px;
+
+}
+.middle-container div{
+    position: center;
+    margin: 10px;
+    justify-content:space-around;
+}
+
+.middle-container div button{
+    height: 100px;
+    width: 100px;
+    border-radius:0px;
+}
+body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
 }
