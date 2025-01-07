@@ -19,19 +19,77 @@ for (var i = 0; i < tempoChangeButtons.length; i++) {
 }
 
 const beatsPerMeasure = 4;
-var selectedBeats = Array(beatsPerMeasure).fill(false);
+var selectedBeats1 = Array(beatsPerMeasure).fill(false);
+var selectedBeats2 = Array(beatsPerMeasure).fill(false);
+var selectedBeats3 = Array(beatsPerMeasure).fill(false);
+var selectedBeats4 = Array(beatsPerMeasure).fill(false);
 
-//Handle beat-box button clicks
-var beatBoxes = document.getElementsByClassName('beat-box');
-for (let i = 0; i < beatBoxes.length; i++) {
-    beatBoxes[i].addEventListener('click', function () {
+// Handle beat-box button clicks for beat-boxes
+var beatBoxes1 = document.getElementsByClassName('beat-box1');
+var beatBoxes2 = document.getElementsByClassName('beat-box2');
+var beatBoxes3 = document.getElementsByClassName('beat-box3');
+var beatBoxes4 = document.getElementsByClassName('beat-box4');
+
+for (let i = 0; i < beatBoxes1.length; i++) {
+    beatBoxes1[i].addEventListener('click', function () {
         const beatIndex = i % beatsPerMeasure;
-        selectedBeats[beatIndex] = !selectedBeats[beatIndex]; // Toggle selection
-        this.style.backgroundColor = selectedBeats[beatIndex] ? 'green' : ''; // Toggle color
+        selectedBeats1[beatIndex] = !selectedBeats1[beatIndex]; // Toggle selection
+        this.style.backgroundColor = selectedBeats1[beatIndex] ? '#ffcad4' : ''; // Toggle color
     });
 }
 
-//Override Metronome scheduleNote method
+for (let i = 0; i < beatBoxes2.length; i++) {
+    beatBoxes2[i].addEventListener('click', function () {
+        const beatIndex = i % beatsPerMeasure;
+        selectedBeats2[beatIndex] = !selectedBeats2[beatIndex]; // Toggle selection
+        this.style.backgroundColor = selectedBeats2[beatIndex] ? '#ffcad4' : ''; // Toggle color
+    });
+}
+
+for (let i = 0; i < beatBoxes3.length; i++) {
+    beatBoxes3[i].addEventListener('click', function () {
+        const beatIndex = i % beatsPerMeasure;
+        selectedBeats3[beatIndex] = !selectedBeats3[beatIndex]; // Toggle selection
+        this.style.backgroundColor = selectedBeats3[beatIndex] ? '#ffcad4' : ''; // Toggle color
+    });
+}
+
+for (let i = 0; i < beatBoxes4.length; i++) {
+    beatBoxes4[i].addEventListener('click', function () {
+        const beatIndex = i % beatsPerMeasure;
+        selectedBeats4[beatIndex] = !selectedBeats4[beatIndex]; // Toggle selection
+        this.style.backgroundColor = selectedBeats4[beatIndex] ? '#ffcad4' : ''; // Toggle color
+    });
+}
+
+// Function to play beat-box sounds
+function playBeatBoxSounds(beatNumber) {
+    if (selectedBeats1[beatNumber]) {
+        const audio1 = new Audio('click1.wav'); // Sound for beat-box1
+        audio1.currentTime = 0; // Reset playback position
+        audio1.play();
+    }
+
+    if (selectedBeats2[beatNumber]) {
+        const audio2 = new Audio('click2.wav'); // Sound for beat-box2
+        audio2.currentTime = 0; // Reset playback position
+        audio2.play();
+    }
+
+    if (selectedBeats3[beatNumber]) {
+        const audio3 = new Audio('click3.wav'); // Sound for beat-box3
+        audio3.currentTime = 0; // Reset playback position
+        audio3.play();
+    }
+
+    if (selectedBeats4[beatNumber]) {
+        const audio4 = new Audio('click4.wav'); // Sound for beat-box4
+        audio4.currentTime = 0; // Reset playback position
+        audio4.play();
+    }
+}
+
+// Override Metronome scheduleNote method
 metronome.scheduleNote = function (beatNumber, time) {
     this.notesInQueue.push({ note: beatNumber, time: time });
 
@@ -47,12 +105,8 @@ metronome.scheduleNote = function (beatNumber, time) {
     osc.start(time);
     osc.stop(time + 0.03);
 
-    // Play custom sound only if the beat is selected
-    if (selectedBeats[beatNumber]) {
-        const audio = new Audio(`click${beatNumber + 1}.wav`); // Change 'click' to the desired sound name
-        audio.currentTime = 0; // Reset playback position
-        audio.play();
-    }
+    // Play custom sounds for beat-boxes
+    playBeatBoxSounds(beatNumber);
 };
 
 metronome.scheduler = function () {
@@ -61,3 +115,12 @@ metronome.scheduler = function () {
         this.nextNote();
     }
 };
+
+//beat-box sounds play according to the tempo
+setInterval(() => {
+    if (!metronome.isRunning) {
+        const beatNumber = metronome.currentBeatInBar;
+        playBeatBoxSounds(beatNumber);
+        metronome.nextNote();
+    }
+}, 60000 / metronome.tempo);

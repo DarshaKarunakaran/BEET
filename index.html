@@ -8,64 +8,53 @@
 </head>
 <body>
     <div class="metronome-container">
-    <div class="title">BEET!</div>
-    <button id="play-button" class="">
-        <div id="play-pause-icon" class="play"></div>
-    </button>
-
-    <div class="tempo-controls">
-        <button class="tempo-change" data-change="-5">-5</button>
-        <button class="tempo-change" data-change="-1">-</button>
-
-        <div class="tempo-container">
-            <div id="tempo">120</div>
-            <div class="bpm">bpm</div>
+        <div class="title">BEET!</div>
+        <button id="play-button">
+            <div id="play-pause-icon" class="play"></div>
+        </button>
+        <div class="tempo-controls">
+            <button class="tempo-change" data-change="-5">-5</button>
+            <button class="tempo-change" data-change="-1">-</button>
+            <div class="tempo-container">
+                <div id="tempo">120</div>
+                <div class="bpm">bpm</div>
+            </div>
+            <button class="tempo-change" data-change="+1">+</button>
+            <button class="tempo-change" data-change="+5">+5</button>
         </div>
-
-        <button class="tempo-change" data-change="+1">+</button>
-        <button class="tempo-change" data-change="+5">+5</button>
-    </div>
-    <!-- Volume control slider -->
-<div class="volume-control">
-    <label for="volume-slider">Volume:</label>
-    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5">
-</div>
-
-    
-</div>
-
-<div class="middle-container">
-
-    <div>
-    <button onclick="changeColor(this)" class="beat-box"></button>
-    <button onclick="changeColor(this)" class="beat-box"></button>
-    <button onclick="changeColor(this)" class="beat-box"></button>
-    <button onclick="changeColor(this)" class="beat-box"></button>
-
+        <!-- Volume control slider -->
+        <div class="volume-control">
+            <label for="volume-slider">Volume:</label>
+            <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="0.5">
+        </div>
     </div>
 
-    <div>
-        <button onclick="changeColor(this)" class="beat-box"></button>
-        <button onclick="changeColor(this)" class="beat-box"></button>
-        <button onclick="changeColor(this)" class="beat-box"></button>
-        <button onclick="changeColor(this)" class="beat-box"></button>
+    <div class="middle-container">
+        <div>
+            <button onclick="changeColor(this)" class="beat-box1"></button>
+            <button onclick="changeColor(this)" class="beat-box1"></button>
+            <button onclick="changeColor(this)" class="beat-box1"></button>
+            <button onclick="changeColor(this)" class="beat-box1"></button>
+        </div>
+        <div>
+            <button onclick="changeColor(this)" class="beat-box2"></button>
+            <button onclick="changeColor(this)" class="beat-box2"></button>
+            <button onclick="changeColor(this)" class="beat-box2"></button>
+            <button onclick="changeColor(this)" class="beat-box2"></button>
+        </div>
+        <div>
+            <button onclick="changeColor(this)" class="beat-box3"></button>
+            <button onclick="changeColor(this)" class="beat-box3"></button>
+            <button onclick="changeColor(this)" class="beat-box3"></button>
+            <button onclick="changeColor(this)" class="beat-box3"></button>
+        </div>
+        <div>
+            <button onclick="changeColor(this)" class="beat-box4"></button>
+            <button onclick="changeColor(this)" class="beat-box4"></button>
+            <button onclick="changeColor(this)" class="beat-box4"></button>
+            <button onclick="changeColor(this)" class="beat-box4"></button>
+        </div>
     </div>
-
-    <div>
-        <button onclick="changeColor(this)" class="beat-box"></button>
-        <button onclick="changeColor(this)" class="beat-box"></button>
-        <button onclick="changeColor(this)" class="beat-box"></button>
-        <button onclick="changeColor(this)" class="beat-box"></button>
-    </div>
-
-    <div>
-        <button onclick="changeColor(this)" class="beat-box"></button>
-        <button onclick="changeColor(this)" class="beat-box"></button>
-        <button onclick="changeColor(this)" class="beat-box"></button>
-        <button onclick="changeColor(this)" class="beat-box"></button>
-    </div>
-
-</div>
 
     <script src="metronome.js"></script>
     <script src="app.js"></script>

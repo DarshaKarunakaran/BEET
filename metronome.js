@@ -20,7 +20,7 @@ class Metronome {
         this.currentBeatInBar = (this.currentBeatInBar + 1) % this.beatsPerBar;
     }
 
-    scheduleNote(beatNumber, time) {
+    scheduleNote = function (beatNumber, time) {
         this.notesInQueue.push({ note: beatNumber, time: time });
 
         // Always play the metronome sound for every beat
@@ -37,7 +37,7 @@ class Metronome {
         osc.stop(time + 0.03);
     }
 
-    scheduler() {
+    scheduler = function () {
         while (this.nextNoteTime < this.audioContext.currentTime + this.scheduleAheadTime) {
             this.scheduleNote(this.currentBeatInBar, this.nextNoteTime);
             this.nextNote();
