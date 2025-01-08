@@ -2,12 +2,18 @@ var metronome = new Metronome();
 var tempo = document.getElementById('tempo');
 tempo.textContent = metronome.tempo;
 
-var playPauseIcon = document.getElementById('play-pause-icon');
 var playButton = document.getElementById('play-button');
 
 playButton.addEventListener('click', function () {
     metronome.startStop();
-    playPauseIcon.className = metronome.isRunning ? 'pause' : 'play';
+
+    playButton.classList.toggle('active', metronome.isRunning);
+
+    if (metronome.isRunning) {
+        stopBeatBoxPlayback(); 
+    } else {
+        startBeatBoxPlayback(); // Resume independent playback when metronome stops
+    }
 });
 
 var tempoChangeButtons = document.getElementsByClassName('tempo-change');
@@ -15,6 +21,11 @@ for (var i = 0; i < tempoChangeButtons.length; i++) {
     tempoChangeButtons[i].addEventListener('click', function () {
         metronome.tempo += parseInt(this.dataset.change);
         tempo.textContent = metronome.tempo;
+
+        if (beatBoxIntervalID) {
+            stopBeatBoxPlayback();
+            startBeatBoxPlayback(); // Restart interval with updated tempo
+        }
     });
 }
 
@@ -34,7 +45,7 @@ for (let i = 0; i < beatBoxes1.length; i++) {
     beatBoxes1[i].addEventListener('click', function () {
         const beatIndex = i % beatsPerMeasure;
         selectedBeats1[beatIndex] = !selectedBeats1[beatIndex]; // Toggle selection
-        this.style.backgroundColor = selectedBeats1[beatIndex] ? '#ffcad4' : ''; // Toggle color
+        this.style.backgroundColor = selectedBeats1[beatIndex] ? '#831f31' : ''; // Toggle color
     });
 }
 
@@ -42,7 +53,7 @@ for (let i = 0; i < beatBoxes2.length; i++) {
     beatBoxes2[i].addEventListener('click', function () {
         const beatIndex = i % beatsPerMeasure;
         selectedBeats2[beatIndex] = !selectedBeats2[beatIndex]; // Toggle selection
-        this.style.backgroundColor = selectedBeats2[beatIndex] ? '#ffcad4' : ''; // Toggle color
+        this.style.backgroundColor = selectedBeats2[beatIndex] ? '#831f31' : ''; // Toggle color
     });
 }
 
@@ -50,7 +61,7 @@ for (let i = 0; i < beatBoxes3.length; i++) {
     beatBoxes3[i].addEventListener('click', function () {
         const beatIndex = i % beatsPerMeasure;
         selectedBeats3[beatIndex] = !selectedBeats3[beatIndex]; // Toggle selection
-        this.style.backgroundColor = selectedBeats3[beatIndex] ? '#ffcad4' : ''; // Toggle color
+        this.style.backgroundColor = selectedBeats3[beatIndex] ? '#831f31' : ''; // Toggle color
     });
 }
 
@@ -58,7 +69,7 @@ for (let i = 0; i < beatBoxes4.length; i++) {
     beatBoxes4[i].addEventListener('click', function () {
         const beatIndex = i % beatsPerMeasure;
         selectedBeats4[beatIndex] = !selectedBeats4[beatIndex]; // Toggle selection
-        this.style.backgroundColor = selectedBeats4[beatIndex] ? '#ffcad4' : ''; // Toggle color
+        this.style.backgroundColor = selectedBeats4[beatIndex] ? '#831f31' : ''; // Toggle color
     });
 }
 
@@ -109,18 +120,32 @@ metronome.scheduleNote = function (beatNumber, time) {
     playBeatBoxSounds(beatNumber);
 };
 
-metronome.scheduler = function () {
-    while (this.nextNoteTime < this.audioContext.currentTime + this.scheduleAheadTime) {
-        this.scheduleNote(this.currentBeatInBar, this.nextNoteTime); // Schedule the note for each beat
-        this.nextNote();
-    }
-};
+// Independent beat-box playback
+let beatBoxIntervalID = null; // Separate interval for beat-box playback
 
-//beat-box sounds play according to the tempo
-setInterval(() => {
-    if (!metronome.isRunning) {
-        const beatNumber = metronome.currentBeatInBar;
-        playBeatBoxSounds(beatNumber);
-        metronome.nextNote();
-    }
-}, 60000 / metronome.tempo);
+function playBeatBoxBeats() {
+    const beatNumber = metronome.currentBeatInBar;
+
+    // Play sounds for selected beat boxes
+    playBeatBoxSounds(beatNumber);
+
+    // Move to the next beat
+    metronome.nextNote();
+}
+
+// Function to start the beat-box playback
+function startBeatBoxPlayback() {
+    if (beatBoxIntervalID) return; // Prevent multiple intervals
+
+    const interval = 60000 / metronome.tempo; // Calculate interval in ms based on tempo
+    beatBoxIntervalID = setInterval(playBeatBoxBeats, interval);
+}
+
+// Function to stop the beat-box playback
+function stopBeatBoxPlayback() {
+    clearInterval(beatBoxIntervalID);
+    beatBoxIntervalID = null;
+}
+
+// Start beat-box playback on page load
+startBeatBoxPlayback();

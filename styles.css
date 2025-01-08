@@ -1,92 +1,158 @@
-.metronome-container {
-    width: 75%;
-    height: 80px;
-    background-color: #ffcad4;
+body {
+    font-family: 'Arial', sans-serif;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    padding: 0 30px;
-    position: center;
-    top: 0;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+    justify-content: flex-start;
+    height: 100vh;
+    background-color: #f4e4ec;
+    margin: 0;
+    padding: 10px;
+    position: relative;
+}
+
+.metronome-container {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background-color: #8e354a;
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 150px;
 }
 
 .title {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    color:#e6979e;
+    font-size: 62px;
+    display:flex;
+    justify-content: center;
+    margin:0px;
+    padding:0px;
+}
+
+.play-button {
+    background-color: #5e3140;
+    border: none;
+    cursor: pointer;
+    outline: none;
+    padding: 8px;
+    border-radius: 50%;
+    transition: background-color 0.3s ease;
+}
+
+#play-button img {
+    width: 40px;
+    height: 40px;
+}
+
+#play-button.active {
+    background-color: #d74a57;
 }
 
 .tempo-controls {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
-    gap: 10px;
+    margin-top: 15px;
+    gap: 5px;
 }
 
-button {
-    padding: 8px;
+.tempo-change {
+    background-color: #b23a48;
+    color: #ffffff;
     border: none;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    background-color: #ff9aa2;
-    color: white;
-    font-size: 14px;
-    font-weight: bold;
+    padding: 6px 10px;
+    border-radius: 5px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: background-color 0.3s;
+    font-size: 0.8em;
 }
 
-button:hover {
-    background-color: #f76c82;
+.tempo-change:hover {
+    background-color: #e94b61;
 }
 
-#play-button {
-    width: 50px;
-    height: 50px;
+#tempo {
+    font-size: 1.5em;
+    color: #ffffff;
 }
 
-.play {
-    border-top: 15px solid transparent;
-    border-bottom: 15px solid transparent;
-    border-left: 25px solid #333;
+.bpm {
+    font-size: 0.9em;
+    color: #ffffff;
 }
 
-.pause {
-    width: 15px;
-    height: 30px;
+.volume-control {
+    margin-top: 10px;
+    font-size: 0.8em;
+}
+
+.volume-control label {
+    color: #ffffff;
+}
+
+.middle-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px; /* Space below the metronome */
+    gap: 20px; /* Space between rows */
+}
+
+.middle-container div {
+    display: flex;
+    gap: 15px; /* Space between beat boxes */
+}
+
+.beat-box1, .beat-box2, .beat-box3, .beat-box4 {
+    width: 90px;
+    height: 90px;
+    margin: 5px;
+    border-radius: 12px;
     border: none;
-    border-left: 10px solid #333;
-    border-right: 10px solid #333;
+    background-color: #e6979e;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s;
 }
 
-.beat-box{
-    height:50px;
-    width: 10px;
+.beat-box1:hover, .beat-box2:hover, .beat-box3:hover, .beat-box4:hover {
+    background-color: #f1b0b9;
+    transform: scale(1.05);
 }
 
-.middle-container{
-    display:flexbox;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    margin: 100px 100px 100px 100px;
-
-}
-.middle-container div{
-    position: center;
-    margin: 10px;
-    justify-content:space-around;
+.beat-box1:active {
+    background-color: #b23a48;
 }
 
-.middle-container div button{
-    height: 100px;
-    width: 100px;
-    border-radius:0px;
+.beat-box2:active {
+    background-color: #a33246;
 }
-body {
-    display:flexbox;
-    justify-items: center;
-    width: 100vw;
-    height: 100vh;
+
+.beat-box3:active {
+    background-color: #95303d;
+}
+
+.beat-box4:active {
+    background-color: #831f31;
+}
+
+.nav-bar{
+    background-color: #831f31;
+    height: 10%;
+    width: 50%;
+    margin-top: 10px;
+}
+#beet-image {
+    position: fixed;
+    bottom: 10px; /* Adjust this value for spacing from the bottom */
+    left: 10px;  /* Adjust this value for spacing from the left */
+    width: 350px;/*just the size of the image */
+    height: auto; /* Maintain aspect ratio */
+    z-index: 10; /* Ensure it appears on top of other elements */
+    cursor: pointer; /* Optional: Change to pointer if it's clickable */
 }
